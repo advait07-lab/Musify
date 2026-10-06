@@ -1,0 +1,7 @@
+{
+  "name": "music-streaming-backend",
+  "version": "1.0.0",
+  "description": "Spotify clone backend (zero dependencies)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" }
+}

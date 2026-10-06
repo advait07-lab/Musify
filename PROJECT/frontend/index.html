@@ -1,0 +1,436 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Musify</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        spotify: "#1db954"
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Your Existing CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg"></div>
+
+    <!-- =====================================================
+         MAIN APP
+         ===================================================== -->
+
+    <div class="app">
+
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
+
+        <aside class="side glass">
+
+            <!-- Logo -->
+            <div class="logo">
+                🎧 Musify
+            </div>
+
+            <!-- Navigation -->
+            <button
+                class="nav"
+                data-v="home"
+                type="button">
+                🏠 Home
+            </button>
+
+            <button
+                class="nav"
+                data-v="liked"
+                type="button">
+                💚 Liked Songs
+            </button>
+
+            <button
+                class="nav"
+                data-v="recent"
+                type="button">
+                🕘 Recently Played
+            </button>
+
+
+            <!-- Moods -->
+            <h4>
+                <span>Moods</span>
+            </h4>
+
+            <div id="moods"></div>
+
+
+            <!-- Playlists -->
+            <h4>
+                <span>Playlists</span>
+
+                <button
+                    id="newpl"
+                    title="New playlist"
+                    type="button">
+                    ＋
+                </button>
+            </h4>
+
+            <div id="pls"></div>
+
+
+            <!-- Accent Colors -->
+            <div
+                class="accents"
+                aria-label="Theme colors">
+
+                <i
+                    data-c="#1db954"
+                    style="background:#1db954"
+                    title="Green">
+                </i>
+
+                <i
+                    data-c="#ff4d8d"
+                    style="background:#ff4d8d"
+                    title="Pink">
+                </i>
+
+                <i
+                    data-c="#4d9dff"
+                    style="background:#4d9dff"
+                    title="Blue">
+                </i>
+
+                <i
+                    data-c="#ff9f1c"
+                    style="background:#ff9f1c"
+                    title="Orange">
+                </i>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+             ================================================= -->
+
+        <main>
+
+            <!-- Search -->
+            <div class="top glass">
+
+                <span aria-hidden="true">
+                    🔍
+                </span>
+
+                <input
+                    id="q"
+                    type="search"
+                    placeholder="Search any Hindi song, artist, mood… (press /)"
+                    autocomplete="off"
+                    aria-label="Search music">
+
+            </div>
+
+
+            <!-- Dynamic Main Content -->
+            <div id="main"></div>
+
+        </main>
+
+
+        <!-- =================================================
+             RIGHT MUSIC PANEL / QUEUE
+             ================================================= -->
+
+        <aside
+            id="panel"
+            class="panel glass">
+
+            <!-- Current Song Artwork -->
+            <div
+                id="big"
+                class="big">
+            </div>
+
+
+            <!-- Current Song -->
+            <h3 id="bt">
+                Nothing playing
+            </h3>
+
+            <p id="ba"></p>
+
+
+            <!-- Queue -->
+            <h4>
+                Up next
+            </h4>
+
+            <div id="ql"></div>
+
+        </aside>
+
+
+        <!-- =================================================
+             MUSIC PLAYER
+             ================================================= -->
+
+        <footer class="player glass">
+
+            <!-- =============================================
+                 CURRENT SONG
+                 ============================================= -->
+
+            <div class="now">
+
+                <!-- Mini Album Art -->
+                <div
+                    id="pArt"
+                    class="mini">
+                </div>
+
+
+                <!-- Song Information -->
+                <div class="meta">
+
+                    <b id="pt">
+                        Pick a song
+                    </b>
+
+                    <small id="pa">
+                        —
+                    </small>
+
+                </div>
+
+
+                <!-- Like -->
+                <button
+                    id="like"
+                    class="ic"
+                    type="button"
+                    title="Like song"
+                    aria-label="Like song">
+                    ♡
+                </button>
+
+
+                <!-- Equalizer -->
+                <i
+                    class="eq"
+                    aria-hidden="true">
+
+                    <s></s>
+                    <s></s>
+                    <s></s>
+                    <s></s>
+
+                </i>
+
+            </div>
+
+
+            <!-- =============================================
+                 PLAYER CONTROLS
+                 ============================================= -->
+
+            <div class="mid">
+
+                <div class="ctl">
+
+                    <!-- Shuffle -->
+                    <button
+                        id="shuf"
+                        class="ic"
+                        type="button"
+                        title="Shuffle"
+                        aria-label="Shuffle">
+                        🔀
+                    </button>
+
+
+                    <!-- Previous -->
+                    <button
+                        id="prev"
+                        class="ic"
+                        type="button"
+                        title="Previous song"
+                        aria-label="Previous song">
+                        ⏮
+                    </button>
+
+
+                    <!-- Play / Pause -->
+                    <button
+                        id="play"
+                        class="pb"
+                        type="button"
+                        title="Play"
+                        aria-label="Play or pause">
+                        ▶
+                    </button>
+
+
+                    <!-- Next -->
+                    <button
+                        id="next"
+                        class="ic"
+                        type="button"
+                        title="Next song"
+                        aria-label="Next song">
+                        ⏭
+                    </button>
+
+
+                    <!-- Repeat -->
+                    <button
+                        id="rep"
+                        class="ic"
+                        type="button"
+                        title="Repeat"
+                        aria-label="Repeat">
+                        🔁
+                    </button>
+
+                </div>
+
+
+                <!-- Progress -->
+                <div class="seek">
+
+                    <span id="cur">
+                        0:00
+                    </span>
+
+                    <input
+                        id="prog"
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="0"
+                        aria-label="Song progress">
+
+                    <span id="dur">
+                        0:00
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 RIGHT PLAYER CONTROLS
+                 ============================================= -->
+
+            <div class="right">
+
+                <!-- Sleep Timer -->
+                <button
+                    id="sleep"
+                    class="ic"
+                    type="button"
+                    title="Sleep timer"
+                    aria-label="Sleep timer">
+                    😴
+                </button>
+
+
+                <!-- Playback Speed -->
+                <button
+                    id="speed"
+                    class="ic"
+                    type="button"
+                    title="Playback speed"
+                    aria-label="Playback speed">
+                    1x
+                </button>
+
+
+                <!-- Queue -->
+                <button
+                    id="qbtn"
+                    class="ic"
+                    type="button"
+                    title="Queue (Q)"
+                    aria-label="Open queue">
+                    ☰
+                </button>
+
+
+                <!-- Volume -->
+                <span
+                    aria-hidden="true">
+                    🔊
+                </span>
+
+                <input
+                    id="vol"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.8"
+                    aria-label="Volume">
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTEXT MENU
+         ===================================================== -->
+
+    <div id="menu"></div>
+
+
+    <!-- =====================================================
+         TOAST NOTIFICATION
+         ===================================================== -->
+
+    <div id="toast"></div>
+
+
+    <!-- =====================================================
+         AUDIO ENGINE
+         ===================================================== -->
+
+    <audio
+        id="audio"
+        preload="metadata">
+    </audio>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
