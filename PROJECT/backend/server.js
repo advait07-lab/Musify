@@ -56,4 +56,6 @@ http.createServer(async (req, res) => {
   const f = path.normalize(path.join(FE, p === '/' ? 'index.html' : p));
   if (!f.startsWith(FE)) { res.writeHead(403); return res.end(); }
   sendFile(req, res, f);
-}).listen(PORT, () => console.log(`Musify running → http://localhost:${PORT}`));
+}).listen(PORT, "0.0.0.0", () => {
+    console.log(`Musify running → http://localhost:${PORT}`);
+});

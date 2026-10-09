@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "description": "Spotify clone backend (zero dependencies)",
   "main": "server.js",
-  "scripts": { "start": "node server.js" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
